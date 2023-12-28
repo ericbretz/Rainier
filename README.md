@@ -1,5 +1,5 @@
 <p align="center">
-<picture><img src="https://i.imgur.com/VFs6brQ.png"
+<picture><img src="https://i.imgur.com/Dfy7bzY.png"
      alt="Rainier 0.8.4"/><br></picture>
 <b>Version 0.8.4</b><br>
 Quality analysis for de-novo transcriptome assemblies</p>
