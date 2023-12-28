@@ -5,7 +5,7 @@ y = str(date_time.year)
 
 __major__ = 0
 __minor__ = 8
-__patch__ = 3
+__patch__ = 4
 __script_name__ = 'Rainier'
 __version__ = f'{__major__}.{__minor__}.{__patch__}'
 __description__ = ('Quality analysis for de-novo transcriptome assemblies')

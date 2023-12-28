@@ -5,13 +5,21 @@ import threading
 import time
 import random
 import psutil
-# from modules.run import MAIN
+import requests
+import json
 from modules.run_revamp import MAIN
 
 if __name__ == '__main__':
     class PARSER:
         def __init__(self):
             self.color = ''
+            try:
+                url = 'https://api.github.com/repos/ericbretz/Rainier/releases'
+                header = {'Accept': 'application/vnd.github+json'}
+                response = requests.get(url, headers=header)
+                self.latest = response.json()[0]['tag_name']
+            except:
+                self.latest = ''
 
         def logoprint(self):
             colors = {
@@ -28,6 +36,12 @@ if __name__ == '__main__':
             W = '\033[37m'
             
             rversion = f'v{__init__.__version__}'
+            if self.latest:
+                if self.latest != __init__.__version__:
+                    rversion = f'{rversion} (Update Available: {self.latest})'
+            else:
+                pass
+
             rainier_logo = f'''
   {W}┌─{C}███████{W}  ┌─{C}██████{W} ┌─{C}██████{W}┌─{C}██{W}  ┌─{C}██{W}┌─{C}██████{W}┌─{C}████████{W}┌─{C}███████{W} 
   │ {C}██{W}──┐ {C}██{W}┌┘{C}██{W}──┐ {C}██{W}└─┐ {C}██{W}─┘│ {C}███ {W}│ {C}██{W}└─┐ {C}██{W}─┘│ {C}██{W}─────┘│ {C}██{W}──┐ {C}██{W}
@@ -82,14 +96,14 @@ if __name__ == '__main__':
             logical = psutil.cpu_count(logical=True)
             physical = psutil.cpu_count(logical=False)
             threadslabel = f'{self.color}  │\033[m Threads: {self.color}'
-            logbody = f'{self.color}  │\033[m     Logical: {logical}'
-            physbody = f'{self.color}  │\033[m     Physical: {physical}'
+            logbody = f'{self.color}  │\033[m     Logical:  '
+            physbody = f'{self.color}  │\033[m     Physical: '
             threalen = 84 - len(str(threadslabel))
-            loglen = 77 - len(str(logbody))
-            physlen = 77 - len(str(physbody))
+            loglen = 77 - len(str(logbody)) - len(str(logical))
+            physlen = 77 - len(str(physbody)) - len(str(physical))
             print(f'{threadslabel}{self.color}{" " * threalen}│\033[m')
-            print(f'{logbody}{" " * loglen}{self.color}│\033[m')
-            print(f'{physbody}{" " * physlen}{self.color}│\033[m')
+            print(f'{logbody}{logical}{" " * loglen}{self.color}│\033[m')
+            print(f'{physbody}{physical}{" " * physlen}{self.color}│\033[m')
             print(bottombar)
 
         def parser(self):

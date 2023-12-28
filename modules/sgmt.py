@@ -21,7 +21,7 @@ def process_task(args):
     return tmp_dct
 
 def sgmt(bamfile, bamdct, threads):
-    threads = min(threads,6)
+    # threads = min(threads,6)
     with Pool(threads) as p:
         results = p.map(process_task, [[i, bamfile, threads, bamdct] for i in range(threads)])
 
